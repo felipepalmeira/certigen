@@ -42,9 +42,9 @@ services:  # Define os serviços que serão executados em contêineres separados
       POSTGRES_USER: user  # Nome do usuário do banco de dados.
       POSTGRES_PASSWORD: pass  # Senha do usuário do banco de dados.
     volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Carrega o script SQL de inicialização  # Define um volume para persistência de dados do banco, mesmo após reiniciar o contêiner.
-
+      - db-data:/var/lib/postgresql/data # Define um volume para persistência de dados do banco, mesmo após reiniciar o contêiner.
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Carrega o script SQL de inicialização 
+  
   # Serviço RabbitMQ para filas
   rabbitmq:
     image: rabbitmq:3-management  # Usa a imagem oficial do RabbitMQ com interface de gerenciamento.
