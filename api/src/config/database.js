@@ -1,3 +1,6 @@
+// CONFIGURAÇÃO DO BANCO DE DADOS 
+
+
 // Importa o módulo 'pg' e extrai o objeto 'Pool', que permite gerenciar um conjunto de conexões com o banco de dados PostgreSQL.
 const { Pool } = require('pg');
 
