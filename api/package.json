@@ -8,5 +8,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "amqplib": "^0.10.4",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.1",
+    "pg": "^8.13.1"
+  }
 }
