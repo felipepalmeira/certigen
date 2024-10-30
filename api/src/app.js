@@ -4,8 +4,8 @@ const express = require('express');
 // Importa o middleware body-parser, que será usado para processar os corpos das requisições em JSON.
 const bodyParser = require('body-parser');
 
-// Importa as rotas definidas em './routes/certificadoRoutes', onde estão os endpoints da API.
-const certificadoRoutes = require('./routes/certificateRoutes');
+// Importa as rotas definidas em './routes/certificateRoutes', onde estão os endpoints da API.
+const certificateRoutes = require('./routes/certificateRoutes');
 
 // Inicializa a aplicação Express.
 const app = express();
@@ -14,7 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Adiciona as rotas de certificado à aplicação, tornando os endpoints definidos em `certificadoRoutes` disponíveis.
-app.use(certificadoRoutes);
+app.use(certificateRoutes);
 
 // Define a porta em que a aplicação irá rodar. Neste caso, será a porta 3000.
 const PORT = 3000;
