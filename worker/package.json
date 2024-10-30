@@ -8,5 +8,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "amqplib": "^0.10.4",
+    "fs-extra": "^11.2.0",
+    "pg": "^8.13.1",
+    "puppeteer": "^23.6.1",
+    "redis": "^4.7.0"
+  }
 }
