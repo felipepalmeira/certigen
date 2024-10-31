@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:18
 # Define a imagem base como Node.js na versão 14. Essa imagem inclui o ambiente necessário para rodar aplicações Node.js.
 
 WORKDIR /usr/src/app
@@ -15,6 +15,6 @@ RUN npm install
 COPY . .
 # Copia todo o conteúdo do diretório atual para o diretório de trabalho no contêiner.
 
-CMD ["node", "worker.js"]
+CMD ["node", "src/worker.js"]
 # Define o comando a ser executado quando o contêiner iniciar.
 # Nesse caso, executa o arquivo worker.js usando o Node.js.
