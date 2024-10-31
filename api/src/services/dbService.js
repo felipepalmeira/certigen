@@ -29,5 +29,5 @@ async function insertCertificate(data) {
   return res.rows[0].id;
 }
 
-// Exporta a função 'inserirCertificado' para que possa ser utilizada em outros módulos da aplicação.
+// Exporta a função 'inserirCertificate' para que possa ser utilizada em outros módulos da aplicação.
 module.exports = { insertCertificate };

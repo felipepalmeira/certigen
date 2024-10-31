@@ -25,7 +25,7 @@ async function connectQueue() { // Função assíncrona para conectar à fila Ra
 
   channel.consume(QUEUE_NAME, async (msg) => { // Consome mensagens da fila especificada.
     const { id } = JSON.parse(msg.content.toString()); // Extrai o ID do certificado da mensagem recebida.
-    await gerarCertificado(id); // Chama a função para gerar o certificado usando o ID extraído.
+    await genCertificate(id); // Chama a função para gerar o certificado usando o ID extraído.
     channel.ack(msg); // Confirma que a mensagem foi processada com sucesso.
   });
 }
