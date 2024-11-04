@@ -29,7 +29,7 @@ services:
       - rabbitmq
       - redis  
     volumes:
-      - /Users/felipe/Desktop/certigen/worker/src/pdfs:/usr/src/app/worker/src/pdfs # Mapeamento para PDFs
+      - ./worker/src/pdfs:/usr/src/app/worker/src/pdfs # Mapeamento para PDFs
 
   db:
     image: postgres:13
