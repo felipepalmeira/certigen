@@ -1,62 +1,60 @@
-version: '3.8'  # Define a versão do Docker Compose que será usada (3.8).
-
-services:  # Define os serviços que serão executados em contêineres separados.
-
-  # Serviço da API REST
+services:
   api:
-    build: ./api  # Caminho para o Dockerfile da API, que será usado para construir a imagem do contêiner da API.
+    build: ./api
     ports:
-      - "3000:3000"  # Mapeia a porta 3000 do host para a porta 3000 do contêiner, tornando a API acessível na porta 3000.
-    environment:  # Define variáveis de ambiente para o contêiner da API.
-      - DATABASE_HOST=db  # Nome do serviço do banco de dados para que a API se conecte a ele.
-      - DATABASE_USER=user  # Usuário do banco de dados, necessário para autenticação.
-      - DATABASE_PASSWORD=pass  # Senha do banco de dados.
-      - DATABASE_NAME=certificates  # Nome do banco de dados onde os dados serão armazenados.
-      - RABBITMQ_HOST=rabbitmq  # Nome do serviço RabbitMQ, permitindo que a API se conecte à fila.
-      - REDIS_HOST=redis  # Nome do serviço Redis, permitindo que a API use o cache.
+      - "3000:3000"
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=pass
+      - DATABASE_NAME=certificates
+      - RABBITMQ_HOST=rabbitmq
+      - REDIS_HOST=redis
     depends_on:
-      - db  # Define que a API depende do serviço db (banco de dados), que deve estar ativo.
-      - rabbitmq  # Define que a API depende do serviço RabbitMQ.
-      - redis  # Define que a API depende do serviço Redis.
+      - db
+      - rabbitmq
+      - redis
 
-  # Serviço do Worker para processar mensagens da fila
   worker:
-    build: ./worker  # Caminho para o Dockerfile do worker, usado para construir a imagem do contêiner.
-    environment:  # Define variáveis de ambiente para o contêiner do worker.
-      - DATABASE_HOST=db  # Nome do serviço do banco de dados para que o worker se conecte a ele.
-      - DATABASE_USER=user  # Usuário do banco de dados.
-      - DATABASE_PASSWORD=pass  # Senha do banco de dados.
-      - DATABASE_NAME=certificates  # Nome do banco de dados para o worker.
-      - RABBITMQ_HOST=rabbitmq  # Nome do serviço RabbitMQ para que o worker acesse a fila.
-      - REDIS_HOST=redis  # Nome do serviço Redis para que o worker acesse o cache.
+    build: ./worker
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=pass
+      - DATABASE_NAME=certificates
+      - RABBITMQ_HOST=rabbitmq
+      - REDIS_HOST=redis
     depends_on:
-      - db  # Define que o worker depende do serviço db.
-      - rabbitmq  # Define que o worker depende do serviço RabbitMQ.
-      - redis  # Define que o worker depende do serviço Redis.
-
-  # Banco de Dados (PostgreSQL ou MySQL)
-  db:
-    image: postgres:13  # Usa a imagem oficial do PostgreSQL versão 13 (substitua por "mysql:5.7" se preferir MySQL).
-    environment:  # Define variáveis de ambiente para configurar o banco de dados.
-      POSTGRES_DB: certificates  # Nome do banco de dados a ser criado no PostgreSQL.
-      POSTGRES_USER: user  # Nome do usuário do banco de dados.
-      POSTGRES_PASSWORD: pass  # Senha do usuário do banco de dados.
+      - db
+      - rabbitmq
+      - redis  
     volumes:
-      - db-data:/var/lib/postgresql/data # Define um volume para persistência de dados do banco, mesmo após reiniciar o contêiner.
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Carrega o script SQL de inicialização 
-  
-  # Serviço RabbitMQ para filas
-  rabbitmq:
-    image: rabbitmq:3-management  # Usa a imagem oficial do RabbitMQ com interface de gerenciamento.
-    ports:
-      - "15672:15672"  # Mapeia a porta 15672 para o host, permitindo acessar a interface de gerenciamento do RabbitMQ.
-      - "5672:5672"  # Mapeia a porta 5672 para comunicação com os outros serviços no contêiner.
+      - /Users/felipe/Desktop/certigen/worker/src/pdfs:/usr/src/app/worker/src/pdfs # Mapeamento para PDFs
 
-  # Serviço Redis para cache
-  redis:
-    image: redis:latest  # Usa a imagem oficial mais recente do Redis.
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: certificates
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+
+  rabbitmq:
+    image: rabbitmq:3-management
     ports:
-      - "6379:6379"  # Mapeia a porta padrão do Redis, tornando o serviço acessível para os outros contêineres.
+      - "15672:15672"
+      - "5672:5672"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
 
 volumes:
-  db-data:  # Define um volume nomeado para armazenar dados do banco de dados, garantindo persistência.
+ # Definição do volume para os dados do PostgreSQL
+  db-data: {} # Apenas define um volume nomeado para o PostgreSQL
+
+  
+  

@@ -29,9 +29,9 @@ async function createCertificate(req, res) {
   } catch (error) {
     // Se ocorrer um erro durante o processo de inserção ou envio para a fila, imprime o erro no console.
     console.error(error);
-    
+   
     // Retorna uma resposta com status 500 (Internal Server Error) e uma mensagem de erro indicando que houve um problema ao processar o certificado.
-    res.status(500).json({ error: 'Erro ao processar o certificado' });
+    res.status(500).json({ error: `Erro ao processar o certificado ${error}` });
   }
 }
 

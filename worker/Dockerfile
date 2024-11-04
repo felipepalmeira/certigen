@@ -1,19 +1,48 @@
+# Use uma imagem base do Node.js
 FROM node:18
-# Define a imagem base como Node.js na versão 14. Essa imagem inclui o ambiente necessário para rodar aplicações Node.js.
 
+# Instala as bibliotecas necessárias
+RUN apt-get update && apt-get install -y \
+    libnss3 \
+    libgconf-2-4 \
+    libxss1 \
+    libxi6 \
+    libgdk-pixbuf2.0-0 \
+    libasound2 \
+    fonts-liberation \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
+    libxrandr2 \
+    libxshmfence1 \
+    libdrm2 \
+    libxkbcommon0 \
+    libgbm1 \
+    wget
+
+# Crie um usuário não-root
+RUN useradd -m myuser
+
+# Mude para o usuário não-root
+USER myuser
+
+# Define o diretório de trabalho
 WORKDIR /usr/src/app
-# Define o diretório de trabalho dentro do contêiner como /usr/src/app.
-# Todo o código copiado e executado a partir deste ponto será relativo a esse diretório.
 
-COPY package*.json ./
-# Copia os arquivos package.json e package-lock.json (se houver) para o diretório de trabalho no contêiner.
-# Esses arquivos são necessários para instalar as dependências.
+# Copie os arquivos de package.json e package-lock.json
+# com propriedade para myuser
+COPY --chown=myuser:myuser package*.json ./
 
+# Instale as dependências
 RUN npm install
-# Executa o comando npm install para instalar todas as dependências listadas no package.json.
 
-COPY . .
-# Copia todo o conteúdo do diretório atual para o diretório de trabalho no contêiner.
+# Copie o restante dos arquivos
+COPY --chown=myuser:myuser . .
+
 
 CMD ["node", "src/worker.js"]
 # Define o comando a ser executado quando o contêiner iniciar.
