@@ -1,36 +1,226 @@
 <!DOCTYPE html>
-<html>
-    <!-- Define o tipo de documento como HTML5 -->
+<html lang="en">
 
 <head>
-    <title>Certificado</title>
-    <!-- Define o título da página que aparecerá na aba do navegador -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificados</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Estilos gerais */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+        }
 
+        /* Container do certificado */
+        .certificate-container {
+            height: 100vh;
+            width: 100vw;
+            background-color: #333;
+            color: #fff;
+           
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .certificate-main {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .certificate-logo {
+            font-size: 1rem;
+        }
+
+        .certificate-title {
+            color: #FFF;
+            font-size: 100%;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+        .certificate-underscore {
+            color: #04FCC6;
+            font-size: 100%;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+
+        /* Parte principal do certificado */
+        .certificate-main {
+            padding: 80px;
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .course-label {
+            font-size: 1rem;
+            color: #333;
+            font-weight: bold;
+            background-color: #04FCC6;
+            width: 45px;
+            padding: 5px 10px;
+            
+        }
+
+        .certificate-main .course-name {
+            color: #04FCC6;
+            margin-top: 10px;
+            font-family: Rajdhani;
+            font-size: 1.7rem;
+            font-style: normal;
+            font-weight: 300;
+            line-height: normal;
+            letter-spacing: 10.24px;
+            text-transform: uppercase;
+        }
+
+        .certificate-main .student-name {
+            color: #FFF;
+            font-family: "Inria Serif";
+            font-size: 3rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+            margin-bottom: 10px;
+        }
+
+        .certificate-main .completion-text {
+            color: #FFF;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: normal;
+        }
+
+        .certificate-main .date {
+            color: #00FFCC;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: normal;
+        }
+
+        .date-info {
+            margin-top: 20px;
+            font-family: Lato;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        /* Coluna lateral do ícone */
+        .certificate-icon {
+            flex: 1;
+            background-color: #00FFCC;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .certificate-icon img {
+            width: 80px;
+            height: auto;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .certificate-container {
+                flex-direction: column;
+            }
+
+            .certificate-main,
+            .certificate-icon {
+                width: 100%;
+            }
+
+            .certificate-main h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Início do corpo da página onde o conteúdo principal será exibido -->
 
-    <h1>Certificado de Conclusão</h1>
-    <!-- Cabeçalho principal com o título "Certificado de Conclusão" -->
+    <!-- Container do Certificado -->
+    <div class="certificate-container">
 
-    <p>Aluno: {{nome_aluno}}</p>
-    <!-- Parágrafo que exibe o nome do aluno, utilizando a variável {{nome_aluno}} para ser substituída dinamicamente -->
+        <!-- Parte principal do certificado -->
+        <div class="certificate-main">
+            <p class="certificate-logo">certigen.</p>
+            <h1 class="certificate-title">Certificado <br>de Conclusão <b class="certificate-underscore">_</b></h1>
 
-    <p>Nacionalidade: {{nacionalidade}}</p>
-    <!-- Parágrafo que exibe a nacionalidade do aluno, usando a variável {{nacionalidade}} -->
+            <div class="course-label">curso:</div>
+            <p class="course-name">{{nome_curso}}</p>
 
-    <p>Curso: {{nome_curso}}</p>
-    <!-- Parágrafo que exibe o nome do curso concluído pelo aluno, usando a variável {{nome_curso}} -->
+            <p class="student-name">{{nome_aluno}}</p>
+            <p class="completion-text">Concluiu o curso online com carga horária estimada em {{carga_horaria}} horas.</p>
+            
+            <span class="date-info">Data de Conclusão:</span> <p class="date" id="dataConclusao"></p>
+        </div>
 
-    <p>Data de Conclusão: {{data_conclusao}}</p>
-    <!-- Parágrafo que exibe a data de conclusão do curso, usando a variável {{data_conclusao}} -->
-    
-    <!-- Adicione outros campos conforme necessário -->
-    <!-- Comentário sugerindo que campos adicionais podem ser adicionados aqui -->
+        <!-- Ícone lateral -->
+        <div class="certificate-icon">
+            <img src="./img/trophy-outline.svg" alt="Ícone de Troféu">
+        </div>
+    </div>
+    <script>
+        // Suponha que `data_conclusao` é passado como uma string válida dentro do template.
+        const dataConclusaoString = "{{data_conclusao}}"; // Insira a data de conclusão aqui no formato ISO
+        const dataConclusao = new Date(dataConclusaoString);
 
+        // Verifique se a data é válida
+        if (!isNaN(dataConclusao.getTime())) {
+            const dataFormatada = dataConclusao.toLocaleDateString('pt-BR');
+            document.getElementById("dataConclusao").textContent = `${dataFormatada}`;
+        } else {
+            document.getElementById("dataConclusao").textContent = "Data de Conclusão inválida";
+        }
+    </script>
 </body>
-<!-- Fim do corpo da página -->
 
 </html>
-<!-- Fim do documento HTML -->
+
+
+
+
+<!-- <body>
+    <h1>Certificado de Conclusão</h1>
+
+    <p>Aluno: {{nome_aluno}}</p>
+    <p>Nacionalidade: {{nacionalidade}}</p>
+    <p>Curso: {{nome_curso}}</p>
+    <p id="dataConclusao"></p>
+    <p>Carga Horária: {{carga_horaria}} horas</p>
+    
+    <script>
+        // Suponha que `data_conclusao` é passado como uma string válida dentro do template.
+        const dataConclusaoString = "{{data_conclusao}}"; // Insira a data de conclusão aqui no formato ISO
+        const dataConclusao = new Date(dataConclusaoString);
+
+        // Verifique se a data é válida
+        if (!isNaN(dataConclusao.getTime())) {
+            const dataFormatada = dataConclusao.toLocaleDateString('pt-BR');
+            document.getElementById("dataConclusao").textContent = `Data de Conclusão: ${dataFormatada}`;
+        } else {
+            document.getElementById("dataConclusao").textContent = "Data de Conclusão: inválida";
+        }
+    </script>
+</body> -->
