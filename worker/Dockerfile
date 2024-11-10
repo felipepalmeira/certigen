@@ -1,7 +1,7 @@
-# Use uma imagem base do Node.js
+
 FROM node:18
 
-# Instala as bibliotecas necessárias
+
 RUN apt-get update && apt-get install -y \
     libnss3 \
     libgconf-2-4 \
@@ -24,26 +24,23 @@ RUN apt-get update && apt-get install -y \
     libgbm1 \
     wget
 
-# Crie um usuário não-root
+
 RUN useradd -m myuser
 
-# Mude para o usuário não-root
+
 USER myuser
 
-# Define o diretório de trabalho
+
 WORKDIR /usr/src/app
 
-# Copie os arquivos de package.json e package-lock.json
-# com propriedade para myuser
+
 COPY --chown=myuser:myuser package*.json ./
 
 # Instale as dependências
 RUN npm install
 
-# Copie o restante dos arquivos
+
 COPY --chown=myuser:myuser . .
 
 
 CMD ["node", "src/worker.js"]
-# Define o comando a ser executado quando o contêiner iniciar.
-# Nesse caso, executa o arquivo worker.js usando o Node.js.

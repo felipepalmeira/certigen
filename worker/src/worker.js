@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs-extra'); 
 const path = require('path'); 
 
-// Configurações do banco, RabbitMQ e Redis
+
 const pool = new Pool({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
@@ -15,23 +15,36 @@ const pool = new Pool({
 });
 
 const redisClient = redis.createClient({ url: 'redis://redis:6379' });
-redisClient.connect(); // Conecta ao Redis
+redisClient.connect(); 
 
 const QUEUE_NAME = 'queue_certificates';
 
 async function connectQueue() {
-  const connection = await amqp.connect('amqp://rabbitmq');
-  const channel = await connection.createChannel();
-  await channel.assertQueue(QUEUE_NAME, { durable: true });
+  try {
+    
+    const connection = await amqp.connect('amqp://rabbitmq');
+    const channel = await connection.createChannel();
 
-  console.log('Aguardando mensagens na fila...');
+    await channel.assertQueue(QUEUE_NAME, { durable: true });
+    console.log('Aguardando mensagens na fila...');
 
-  channel.consume(QUEUE_NAME, async (msg) => {
-    const { id } = JSON.parse(msg.content.toString());
-    await genCertificate(id);
-    channel.ack(msg);
-  });
+    channel.consume(QUEUE_NAME, async (msg) => {
+      try {
+        const { id } = JSON.parse(msg.content.toString());
+        await genCertificate(id);
+        channel.ack(msg);
+      } catch (error) {
+        console.error(`Erro ao processar mensagem da fila: ${error.message}`);
+        channel.nack(msg); 
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao conectar na fila:', error.message);
+   
+    setTimeout(connectQueue, 5000);
+  }
 }
+
 
 async function genCertificate(id) {
   try {
@@ -63,8 +76,19 @@ async function converterHTMLtoPDF(html, id) {
   const page = await browser.newPage();
   await page.setContent(html);
 
+  /*
+  O metodo goto não trabalha com dados dinâmicos 
+
+  const url = `file:///usr/src/app/src/templates/certificate-template.html?id=${id}`;
+  await page.goto(url, { waitUntil: 'networkidle2' }); // Aguarda a página carregar completamente
+
+  Aguardar carregamento de imagens ou qualquer outro recurso que precise estar visível no PDF
+  await page.waitForSelector('img');
+  
+  */
+
   const pathPDF = path.join(__dirname, `pdfs/certificado_${id}.pdf`);
-  await page.pdf({ path: pathPDF, format: 'A4' });
+  await page.pdf({ path: pathPDF, format: 'A4', landscape: true, printBackground: true });
   await browser.close();
 
   return pathPDF;
@@ -79,10 +103,10 @@ async function updateDB(id, pathPDF) {
 
 async function cachePDF(id, pathPDF) {
   const pdfBuffer = await fs.readFile(pathPDF);
-  await redisClient.set(id, pdfBuffer.toString()); 
+  await redisClient.set(id.toString(), pdfBuffer.toString('base64'));
 }
 
 connectQueue().catch((err) => console.error('Erro ao conectar na fila:', err));
 
-// Encerra a conexão Redis ao encerrar o programa
+
 process.on('exit', () => redisClient.quit());
