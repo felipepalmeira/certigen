@@ -4,6 +4,8 @@
 Este projeto é uma aplicação de microserviços que automatiza a geração de certificados de conclusão para uma instituição de ensino. A API recebe os dados do aluno, processa a solicitação, enfileira o pedido para um worker, que então gera um PDF do certificado. Esse PDF é salvo e armazenado em cache (usando Redis) para respostas rápidas.
 
 ## Layout do Certificado
+![Certificado Layout](https://link-para-imagem.com/imagem.png)
+
 
 O layout do certificado está desenhado no [Figma](https://www.figma.com/design/7350eIKtOEU8USfYcXc4f6/Certificado?node-id=0-1&t=cLcVlTWvQMm12Llf-1). Certifique-se de seguir o design no Figma para manter a consistência ao realizar qualquer atualização no template.
 
