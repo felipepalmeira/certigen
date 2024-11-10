@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS certificates (
     nome_curso VARCHAR(100) NOT NULL,  
     carga_horaria INT NOT NULL,        
     numero_certificado UUID DEFAULT uuid_generate_v4(),
-    status VARCHAR(20) DEFAULT 'pendente',  -- Nova coluna status com valor padrão
-    caminho_pdf VARCHAR(255)  -- Nova coluna caminho_pdf para armazenar o caminho do PDF
+    status VARCHAR(20) DEFAULT 'pendente',  
+    caminho_pdf VARCHAR(255)  
 );
