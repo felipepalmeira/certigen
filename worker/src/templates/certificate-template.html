@@ -223,7 +223,7 @@
         const dataConclusaoString = "{{data_conclusao}}"; 
         const dataConclusao = new Date(dataConclusaoString);
 
-        // Verifique se a data é válida
+        
         if (!isNaN(dataConclusao.getTime())) {
             const dataFormatada = dataConclusao.toLocaleDateString('pt-BR');
             document.getElementById("dataConclusao").textContent = `${dataFormatada}`;
