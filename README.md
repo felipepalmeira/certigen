@@ -25,6 +25,7 @@ O projeto é dividido em múltiplos serviços, cada um com uma função específ
 │   ├── controllers
 │   ├── services
 │   └── config
+├── init-db
 ├── worker
 │   ├── templates
 │   └── pdfs
