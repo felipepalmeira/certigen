@@ -42,7 +42,7 @@ O projeto é dividido em múltiplos serviços, cada um com uma função específ
    DATABASE_HOST=db
    DATABASE_USER=user
    DATABASE_PASSWORD=pass
-   DATABASE_NAME=certificados
+   DATABASE_NAME=certificates
    RABBITMQ_HOST=rabbitmq
    REDIS_HOST=redis
    ```
@@ -87,7 +87,7 @@ O projeto é dividido em múltiplos serviços, cada um com uma função específ
 ### Worker
 - **Função**: Consome mensagens da fila RabbitMQ, gera o certificado em PDF, salva o arquivo e atualiza o status no banco de dados.
 - **Localização**: Diretório `/worker`
-- **PDF Template**: O template HTML para o diploma está em `/worker/templates/diplomaTemplate.html`.
+- **PDF Template**: O template HTML para o certificado está em `/worker/src/templates/diplomaTemplate.html`.
 
 ### Banco de Dados
 - **Função**: Armazena os dados dos alunos e o status de cada certificado.
