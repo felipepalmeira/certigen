@@ -61,9 +61,9 @@ O projeto é dividido em múltiplos serviços, cada um com uma função específ
    docker-compose up -d
    ```
 
-2. Acesse a API na porta `3000`. 
-
 ## Endpoints da API
+
+*Teste a API: Envie uma requisição do tipo POST para criar um certificado pelo [Postman](postman.com/) ou outra ferramenta para o teste de requisição.
 
 - **POST /api/v1/certificado**: Recebe os dados do aluno e do curso e enfileira o pedido de certificado.
   - **Corpo da requisição (JSON)**:
