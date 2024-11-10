@@ -5,7 +5,7 @@ Este projeto é uma aplicação de microserviços que automatiza a geração de 
 
 ## Layout do Certificado
 
-O layout do certificado está desenhado no [Figma]([https://www.figma.com/](https://www.figma.com/design/7350eIKtOEU8USfYcXc4f6/Certificado?node-id=0-1&t=cLcVlTWvQMm12Llf-1)). Certifique-se de seguir o design no Figma para manter a consistência ao realizar qualquer atualização no template.
+O layout do certificado está desenhado no [Figma]([[https://www.figma.com/](https://www.figma.com/design/7350eIKtOEU8USfYcXc4f6/Certificado?node-id=0-1&t=cLcVlTWvQMm12Llf-1))]). Certifique-se de seguir o design no Figma para manter a consistência ao realizar qualquer atualização no template.
 
 
 ## Arquitetura
