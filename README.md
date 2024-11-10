@@ -69,14 +69,14 @@ O projeto é dividido em múltiplos serviços, cada um com uma função específ
   - **Corpo da requisição (JSON)**:
     ```json
     {
-      "nome_aluno": "Maria Silva",
-      "nacionalidade": "Brasileira",
+      "nome_aluno": "Felipe Palmeira",
+      "nacionalidade": "Brasileiro",
       "estado": "SP",
       "data_nascimento": "2000-01-01",
       "rg": "123456789",
-      "data_conclusao": "2023-10-01",
-      "nome_curso": "Engenharia de Software",
-      "carga_horaria": 120
+      "data_conclusao": "2025-11-30",
+      "nome_curso": "Sistemas de Informação",
+      "carga_horaria": 2400
     }
     ```
 
