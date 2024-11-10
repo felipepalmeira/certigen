@@ -8,8 +8,8 @@ services:
       - DATABASE_USER=user
       - DATABASE_PASSWORD=pass
       - DATABASE_NAME=certificates
-      - RABBITMQ_URL=amqp://rabbitmq:5672 # Configura a URL completa do RabbitMQ
-      - REDIS_URL=redis://redis:6379      # Configura a URL completa do Redis
+      - RABBITMQ_URL=amqp://rabbitmq:5672 
+      - REDIS_URL=redis://redis:6379     
     depends_on:
       - db
       - rabbitmq
@@ -22,14 +22,14 @@ services:
       - DATABASE_USER=user
       - DATABASE_PASSWORD=pass
       - DATABASE_NAME=certificates
-      - RABBITMQ_URL=amqp://rabbitmq:5672 # Configura a URL completa do RabbitMQ
-      - REDIS_URL=redis://redis:6379      # Configura a URL completa do Redis
+      - RABBITMQ_URL=amqp://rabbitmq:5672 
+      - REDIS_URL=redis://redis:6379     
     depends_on:
       - db
       - rabbitmq
       - redis  
     volumes:
-      - ./worker/src/pdfs:/usr/src/app/src/pdfs # Mapeamento para PDFs
+      - ./worker/src/pdfs:/usr/src/app/src/pdfs 
 
   db:
     image: postgres:13
@@ -44,14 +44,14 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     ports:
-      - "15672:15672" # Porta do painel de controle do RabbitMQ
-      - "5672:5672"   # Porta padrão para conexões AMQP
+      - "15672:15672" 
+      - "5672:5672"   
 
   redis:
     image: redis:latest
     ports:
-      - "6379:6379"   # Porta padrão para o Redis
+      - "6379:6379"   
 
 volumes:
-  # Definição do volume para os dados do PostgreSQL
+
   db-data: {}
