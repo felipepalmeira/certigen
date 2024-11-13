@@ -5,7 +5,6 @@ const puppeteer = require('puppeteer');
 const fs = require('fs-extra'); 
 const path = require('path'); 
 
-
 const pool = new Pool({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
@@ -45,7 +44,6 @@ async function connectQueue() {
   }
 }
 
-
 async function genCertificate(id) {
   try {
     const data = await loadDataDB(id);
@@ -76,17 +74,6 @@ async function converterHTMLtoPDF(html, id) {
   const page = await browser.newPage();
   await page.setContent(html);
 
-  /*
-  O metodo goto não trabalha com dados dinâmicos 
-
-  const url = `file:///usr/src/app/src/templates/certificate-template.html?id=${id}`;
-  await page.goto(url, { waitUntil: 'networkidle2' }); // Aguarda a página carregar completamente
-
-  Aguardar carregamento de imagens ou qualquer outro recurso que precise estar visível no PDF
-  await page.waitForSelector('img');
-  
-  */
-
   const pathPDF = path.join(__dirname, `pdfs/certificado_${id}.pdf`);
   await page.pdf({ path: pathPDF, format: 'A4', landscape: true, printBackground: true });
   await browser.close();
@@ -107,6 +94,5 @@ async function cachePDF(id, pathPDF) {
 }
 
 connectQueue().catch((err) => console.error('Erro ao conectar na fila:', err));
-
 
 process.on('exit', () => redisClient.quit());
